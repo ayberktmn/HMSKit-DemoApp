@@ -28,16 +28,23 @@ class MainActivity : AppCompatActivity() {
         val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setIdToken().createParams()
         val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
 
+        val authorizationParams : AccountAuthParams =  AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setAuthorizationCode().createParams()
+        val serviceAuth : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authorizationParams)
 
         binding.huaweiIdAuthorizationButton.setOnClickListener {
             startActivityForResult(service.signInIntent, 8888)
         }
-
         binding.accountSilentSignin.setOnClickListener {
             silentsignin()
         }
         binding.accountSignout.setOnClickListener {
             signOut()
+        }
+        binding.accountSignInCode.setOnClickListener {
+            startActivityForResult(serviceAuth.signInIntent, 8888)
+        }
+        binding.cancelAuthorization.setOnClickListener {
+            cancelAuthorization()
         }
     }
 
@@ -50,13 +57,13 @@ class MainActivity : AppCompatActivity() {
                 // The sign-in is successful, and the user's ID information and ID token are obtained.
                 val authAccount = authAccountTask.result
                 Log.i(ContentValues.TAG, "idToken:" + authAccount.idToken)
-                Toast.makeText(this,"tokenid:"+ authAccount.idToken, Toast.LENGTH_LONG).show()
-                println("calisiyor")
+                Toast.makeText(this,"Id Token:"+ authAccount.idToken, Toast.LENGTH_SHORT).show() // id ile giris yapilinca gelecek id Token
+                Toast.makeText(this,"serverAuthCode:" + authAccount.authorizationCode, Toast.LENGTH_SHORT).show() // authorizationCode ile giris yapilinca gelecek serverAuthCode
+
             } else {
                 // The sign-in failed. No processing is required. Logs are recorded for fault locating.
                 Log.e(ContentValues.TAG, "sign in failed : " + (authAccountTask.exception as ApiException).statusCode)
-                println("calismadi")
-                Toast.makeText(this,"calismayan id:", Toast.LENGTH_LONG).show()
+                Toast.makeText(this,"Yanlis id:", Toast.LENGTH_SHORT).show()
             }
         }
     }
@@ -68,7 +75,7 @@ class MainActivity : AppCompatActivity() {
 
         task.addOnSuccessListener { authAccount ->
             // Obtain the user's ID information.
-            Toast.makeText(this,"SuccesSilentSignin:"+ authAccount.displayName, Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"SuccesSilentSignin:"+ authAccount.displayName, Toast.LENGTH_SHORT).show()  // giris yapildiktan sonra eger cikis yapilmadiysa kullanici adiyle girilince gelen mesaj
             Log.i(TAG, "displayName:" + authAccount.displayName)
             // Obtain the **0**D type (0: HU**1**WEI ID; 1: AppTouch ID).
             Log.i(TAG, "accountFlag:" + authAccount.accountFlag);
@@ -76,6 +83,7 @@ class MainActivity : AppCompatActivity() {
         task.addOnFailureListener { e ->
             // The sign-in failed. Your app can **getSignInIntent()**nIntent() method to explicitly display the authorization screen.
             if (e is ApiException) {
+                Toast.makeText(this,"LOGIN FAILED", Toast.LENGTH_SHORT).show() //eger daha once id veya code ile giris yapilmadiysa giris islemi olmayacagini ileten mesaj
                 Log.i(TAG, "sign failed status:" + e.statusCode)
             }
         }
@@ -88,8 +96,22 @@ class MainActivity : AppCompatActivity() {
 
         signOutTask.addOnCompleteListener { it ->
 
-            Toast.makeText(this,"signOut complete", Toast.LENGTH_LONG).show()
+            Toast.makeText(this,"SignOut Complete", Toast.LENGTH_SHORT).show()
             Log.i(TAG, "signOut complete")
+        }
+    }
+
+    private fun cancelAuthorization() {
+        val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).createParams()
+        val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
+        val task = service.cancelAuthorization()
+        task.addOnSuccessListener {
+            Toast.makeText(this,"CancelAuthorization Success", Toast.LENGTH_SHORT).show()
+            Log.i(TAG, "cancelAuthorization success")
+        }
+        task.addOnFailureListener { e ->
+            Toast.makeText(this,"CancelAuthorization Failed", Toast.LENGTH_SHORT).show()
+            Log.i(TAG, "cancelAuthorization failure:" + e.javaClass.simpleName)
         }
     }
 }
