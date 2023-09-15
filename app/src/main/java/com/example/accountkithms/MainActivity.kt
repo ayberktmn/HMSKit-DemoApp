@@ -1,28 +1,43 @@
 package com.example.accountkithms
 
 import android.content.ContentValues
+import android.content.ContentValues.TAG
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import com.example.accountkithms.databinding.ActivityMainBinding
+import com.huawei.hmf.tasks.Task
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.support.account.AccountAuthManager
 import com.huawei.hms.support.account.request.AccountAuthParams
 import com.huawei.hms.support.account.request.AccountAuthParamsHelper
+import com.huawei.hms.support.account.result.AuthAccount
 import com.huawei.hms.support.account.service.AccountAuthService
 
 class MainActivity : AppCompatActivity() {
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+
         val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setIdToken().createParams()
         val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
 
-        val btn = findViewById<View>(R.id.huaweiIdAuthButton)
-        btn.setOnClickListener {
+
+        binding.huaweiIdAuthorizationButton.setOnClickListener {
             startActivityForResult(service.signInIntent, 8888)
+        }
+
+        binding.accountSilentSignin.setOnClickListener {
+            silentsignin()
+        }
+        binding.accountSignout.setOnClickListener {
+            signOut()
         }
     }
 
@@ -43,6 +58,38 @@ class MainActivity : AppCompatActivity() {
                 println("calismadi")
                 Toast.makeText(this,"calismayan id:", Toast.LENGTH_LONG).show()
             }
+        }
+    }
+
+    fun silentsignin(){
+        val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).createParams()
+        val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
+        val task : Task<AuthAccount> = service.silentSignIn()
+
+        task.addOnSuccessListener { authAccount ->
+            // Obtain the user's ID information.
+            Toast.makeText(this,"SuccesSilentSignin:"+ authAccount.displayName, Toast.LENGTH_LONG).show()
+            Log.i(TAG, "displayName:" + authAccount.displayName)
+            // Obtain the **0**D type (0: HU**1**WEI ID; 1: AppTouch ID).
+            Log.i(TAG, "accountFlag:" + authAccount.accountFlag);
+        }
+        task.addOnFailureListener { e ->
+            // The sign-in failed. Your app can **getSignInIntent()**nIntent() method to explicitly display the authorization screen.
+            if (e is ApiException) {
+                Log.i(TAG, "sign failed status:" + e.statusCode)
+            }
+        }
+    }
+
+    fun signOut(){
+        val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).createParams()
+        val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
+        val signOutTask = service.signOut()
+
+        signOutTask.addOnCompleteListener { it ->
+
+            Toast.makeText(this,"signOut complete", Toast.LENGTH_LONG).show()
+            Log.i(TAG, "signOut complete")
         }
     }
 }
