@@ -7,4 +7,8 @@
     <string name="revokeAccess">AuthorizationCode Mode Signln</string>
     <string name="silent_sign_in">Silent SignIn</string>
     <string name="cancel_authorization">Cancel Authorization</string>
+    <string name="welcome">Hos Geldiniz!</string>
+    <string name="idtoken">Id Token:</string>
+    <string name="AuthorizationCode">Authorization Code:</string>
+    <string name="Silentsignin">Silent Signin:</string>
 </resources>

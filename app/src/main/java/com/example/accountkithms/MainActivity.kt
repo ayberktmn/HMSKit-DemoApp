@@ -60,6 +60,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this,"Id Token:"+ authAccount.idToken, Toast.LENGTH_SHORT).show() // id ile giris yapilinca gelecek id Token
                 Toast.makeText(this,"serverAuthCode:" + authAccount.authorizationCode, Toast.LENGTH_SHORT).show() // authorizationCode ile giris yapilinca gelecek serverAuthCode
 
+                val intent = Intent(this, HomeActivity::class.java)
+                startActivity(intent)
             } else {
                 // The sign-in failed. No processing is required. Logs are recorded for fault locating.
                 Log.e(ContentValues.TAG, "sign in failed : " + (authAccountTask.exception as ApiException).statusCode)
@@ -78,7 +80,10 @@ class MainActivity : AppCompatActivity() {
             Toast.makeText(this,"SuccesSilentSignin:"+ authAccount.displayName, Toast.LENGTH_SHORT).show()  // giris yapildiktan sonra eger cikis yapilmadiysa kullanici adiyle girilince gelen mesaj
             Log.i(TAG, "displayName:" + authAccount.displayName)
             // Obtain the **0**D type (0: HU**1**WEI ID; 1: AppTouch ID).
-            Log.i(TAG, "accountFlag:" + authAccount.accountFlag);
+            Log.i(TAG, "accountFlag:" + authAccount.accountFlag)
+
+            val intent = Intent(this, HomeActivity::class.java)
+            startActivity(intent)
         }
         task.addOnFailureListener { e ->
             // The sign-in failed. Your app can **getSignInIntent()**nIntent() method to explicitly display the authorization screen.
