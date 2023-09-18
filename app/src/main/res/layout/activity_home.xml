@@ -8,36 +8,37 @@
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="173dp"
-        android:layout_height="0dp"
-        android:layout_marginBottom="626dp"
+        android:layout_width="164dp"
+        android:layout_height="39dp"
         android:gravity="center"
         android:text="@string/welcome"
         android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2"
+        app:layout_constraintVertical_bias="0.0" />
 
     <ImageView
         android:id="@+id/imageView2"
-        android:layout_width="104dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="94dp"
+        android:layout_width="90dp"
+        android:layout_height="122dp"
         android:layout_marginBottom="13dp"
-        app:layout_constraintBottom_toTopOf="@+id/textView2"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:srcCompat="@drawable/huawei" />
 
     <TextView
         android:id="@+id/textView3"
         android:layout_width="105dp"
         android:layout_height="36dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="84dp"
         android:gravity="center"
         android:text="@string/idtoken"
         app:layout_constraintStart_toStartOf="parent"
@@ -47,7 +48,7 @@
         android:id="@+id/textView4"
         android:layout_width="97dp"
         android:layout_height="52dp"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="4dp"
         android:layout_marginTop="84dp"
         android:gravity="center"
         android:text="@string/AuthorizationCode"
@@ -58,43 +59,56 @@
         android:id="@+id/textView5"
         android:layout_width="110dp"
         android:layout_height="23dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="128dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="76dp"
+        android:gravity="center"
         android:text="@string/Silentsignin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
-    <TextView
-        android:id="@+id/txtIdToken"
-        android:layout_width="233dp"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="230dp"
         android:layout_height="90dp"
         android:layout_marginTop="60dp"
-        android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.797"
+        app:layout_constraintHorizontal_bias="0.876"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2">
 
-    <TextView
-        android:id="@+id/txtAuthorization"
-        android:layout_width="227dp"
-        android:layout_height="94dp"
-        android:layout_marginTop="28dp"
-        android:text="TextView"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.771"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtIdToken" />
+        <TextView
+            android:id="@+id/txtIdToken"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text="TextView" />
+    </ScrollView>
 
     <TextView
         android:id="@+id/txtSilentSign"
-        android:layout_width="195dp"
-        android:layout_height="72dp"
-        android:layout_marginTop="68dp"
+        android:layout_width="217dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="496dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.712"
+        app:layout_constraintHorizontal_bias="0.944"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtAuthorization" />
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="230dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="13dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView4"
+        app:layout_constraintTop_toBottomOf="@+id/scrollView2">
+
+        <TextView
+            android:id="@+id/txtAuthorization"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="TextView" />
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
