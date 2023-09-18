@@ -3,8 +3,11 @@ package com.example.accountkithms
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
 import android.widget.Toast
@@ -127,14 +130,26 @@ class MainActivity : AppCompatActivity() {
 
     private fun showCancelAuthorizationConfirmationDialog() {
         val alertDialogBuilder = AlertDialog.Builder(this)
-        alertDialogBuilder.setTitle("Onaylama")
-        alertDialogBuilder.setMessage("İptal etmek istediğinize emin misiniz?")
+        alertDialogBuilder.setTitle("Cikis")
+        alertDialogBuilder.setMessage("Cikis yapmak istediğinize emin misiniz?")
+        alertDialogBuilder.setIcon(R.drawable.huawei)
+
+        val NegativeButtonText = "Hayır"
+        val NegativeButtonTextSpannable = SpannableString(NegativeButtonText)
+        NegativeButtonTextSpannable.setSpan(
+            ForegroundColorSpan(Color.RED), // Kırmızı renk
+            0,
+            NegativeButtonText.length,
+            0
+        )
+
         alertDialogBuilder.setPositiveButton("Evet") { _, _ ->
-            // İptal işlemi onaylandı, iptal kodunu çağırabilirsiniz
+            // İptal işlemi onaylandı
             cancelAuthorization()
         }
-        alertDialogBuilder.setNegativeButton("Hayır") { dialog, _ ->
-            // İptal işlemi iptal edildi, dialog'u kapatın
+
+        alertDialogBuilder.setNegativeButton(NegativeButtonTextSpannable) { dialog, _ ->
+            // İptal işlemi iptal edildi, dialog'u kapat
             dialog.dismiss()
         }
         val alertDialog = alertDialogBuilder.create()
