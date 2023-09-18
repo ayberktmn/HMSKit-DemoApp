@@ -8,6 +8,7 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.example.accountkithms.databinding.ActivityMainBinding
 import com.huawei.hmf.tasks.Task
 import com.huawei.hms.common.ApiException
@@ -44,7 +45,7 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(serviceAuth.signInIntent, 8888)
         }
         binding.cancelAuthorization.setOnClickListener {
-            cancelAuthorization()
+            showCancelAuthorizationConfirmationDialog()
         }
     }
 
@@ -56,18 +57,19 @@ class MainActivity : AppCompatActivity() {
             if (authAccountTask.isSuccessful) {
 
                 val authAccount = authAccountTask.result
-                Toast.makeText(this,"Id Token:"+ authAccount.idToken, Toast.LENGTH_SHORT).show() // id ile giris yapilinca gelecek id Token
-                Toast.makeText(this,"serverAuthCode:" + authAccount.authorizationCode, Toast.LENGTH_SHORT).show() // authorizationCode ile giris yapilinca gelecek serverAuthCode
+           //     Toast.makeText(this,"Id Token:"+ authAccount.idToken, Toast.LENGTH_SHORT).show() // id ile giris yapilinca gelecek id Token
+            //    Toast.makeText(this,"serverAuthCode:" + authAccount.authorizationCode, Toast.LENGTH_SHORT).show() // authorizationCode ile giris yapilinca gelecek serverAuthCode
 
                 val intent = Intent(this, HomeActivity::class.java)
 
                 // Intent'e idToken'i ekleyin
                 intent.putExtra("idToken", authAccount.idToken)
 
+                intent.putExtra("authorizationCode", authAccount.authorizationCode)
+
                 // HomeActivity'yi başlat
                 startActivity(intent)
             } else {
-
 
                 Toast.makeText(this,"Yanlis id:", Toast.LENGTH_SHORT).show()
             }
@@ -80,9 +82,14 @@ class MainActivity : AppCompatActivity() {
         val task : Task<AuthAccount> = service.silentSignIn()
 
         task.addOnSuccessListener { authAccount ->
-            Toast.makeText(this,"SuccesSilentSignin:"+ authAccount.displayName, Toast.LENGTH_SHORT).show()  // giris yapildiktan sonra eger cikis yapilmadiysa kullanici adiyle girilince gelen mesaj
+         //   Toast.makeText(this,"SuccesSilentSignin:"+ authAccount.displayName, Toast.LENGTH_SHORT).show()  // giris yapildiktan sonra eger cikis yapilmadiysa kullanici adiyle girilince gelen mesaj
 
             val intent = Intent(this, HomeActivity::class.java)
+
+            // Intent'e idToken'i ekleyin
+            intent.putExtra("SilentSignin",authAccount.displayName)
+
+            // HomeActivity'yi başlat
             startActivity(intent)
         }
         task.addOnFailureListener { e ->
@@ -109,12 +116,28 @@ class MainActivity : AppCompatActivity() {
         val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
         val task = service.cancelAuthorization()
         task.addOnSuccessListener {
-            Toast.makeText(this,"CancelAuthorization Success", Toast.LENGTH_SHORT).show()
+           Toast.makeText(this,"CancelAuthorization Success", Toast.LENGTH_SHORT).show()
 
         }
         task.addOnFailureListener { e ->
             Toast.makeText(this,"CancelAuthorization Failed", Toast.LENGTH_SHORT).show()
 
         }
+    }
+
+    private fun showCancelAuthorizationConfirmationDialog() {
+        val alertDialogBuilder = AlertDialog.Builder(this)
+        alertDialogBuilder.setTitle("Onaylama")
+        alertDialogBuilder.setMessage("İptal etmek istediğinize emin misiniz?")
+        alertDialogBuilder.setPositiveButton("Evet") { _, _ ->
+            // İptal işlemi onaylandı, iptal kodunu çağırabilirsiniz
+            cancelAuthorization()
+        }
+        alertDialogBuilder.setNegativeButton("Hayır") { dialog, _ ->
+            // İptal işlemi iptal edildi, dialog'u kapatın
+            dialog.dismiss()
+        }
+        val alertDialog = alertDialogBuilder.create()
+        alertDialog.show()
     }
 }
