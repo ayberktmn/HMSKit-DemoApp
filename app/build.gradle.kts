@@ -70,4 +70,5 @@ dependencies {
 
     implementation ("com.huawei.agconnect:agconnect-core:1.9.1.300")
     implementation ("com.huawei.hms:hwid:6.7.0.300")
+    implementation ("com.huawei.hms:ads-lite:13.4.66.300")
 }

@@ -2,9 +2,14 @@ package com.example.accountkithms
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
+import android.widget.RelativeLayout
 import android.widget.Toast
+import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.accountkithms.databinding.ActivityHomeBinding
+import com.huawei.hms.ads.AdParam
+import com.huawei.hms.ads.BannerAdSize
+import com.huawei.hms.ads.HwAds
+import com.huawei.hms.ads.banner.BannerView
 
 class HomeActivity : AppCompatActivity() {
 
@@ -13,6 +18,19 @@ class HomeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        HwAds.init(this)
+
+
+        var bannerView: BannerView? = findViewById(R.id.hw_banner_view)
+        // Set the ad unit ID and ad dimensions. "testw6vs28auh3" is a dedicated test ad unit ID.
+        bannerView!!.adId = "testw6vs28auh3"
+        bannerView!!.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
+        // Set the refresh interval to 60 seconds.
+        bannerView!!.setBannerRefresh(60)
+        // Create an ad request to load an ad.
+        val adParam = AdParam.Builder().build()
+        bannerView!!.loadAd(adParam)
 
         val idToken = intent.getStringExtra("idToken")
         val SilentSignin = intent.getStringExtra("SilentSignin")
