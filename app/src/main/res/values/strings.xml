@@ -11,4 +11,5 @@
     <string name="idtoken">Id Token:</string>
     <string name="AuthorizationCode">Authorization Code:</string>
     <string name="Silentsignin">Silent Signin:</string>
+    <string name="Location">Location Updates:</string>
 </resources>

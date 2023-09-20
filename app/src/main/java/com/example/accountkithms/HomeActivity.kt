@@ -1,17 +1,15 @@
 package com.example.accountkithms
 
+
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.RelativeLayout
 import android.widget.Toast
-import androidx.constraintlayout.widget.ConstraintLayout
 import com.example.accountkithms.databinding.ActivityHomeBinding
-import com.huawei.hms.ads.AdListener
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
 import com.huawei.hms.ads.HwAds
-import com.huawei.hms.ads.banner.BannerView
-import com.huawei.hms.ads.nativead.NativeAdLoader
+
 
 class HomeActivity : AppCompatActivity() {
 
@@ -24,26 +22,26 @@ class HomeActivity : AppCompatActivity() {
 
         HwAds.init(this)
 
-        var bannerView: BannerView? = findViewById(R.id.hw_banner_view)
+
         // Set the ad unit ID and ad dimensions. "testw6vs28auh3" is a dedicated test ad unit ID.
-        bannerView!!.adId = "testw6vs28auh3"
-        bannerView!!.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
+        binding.hwBannerView.adId = "testw6vs28auh3"
+        binding.hwBannerView.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
         // Set the refresh interval to 60 seconds.
-        bannerView!!.setBannerRefresh(60)
+        binding.hwBannerView.setBannerRefresh(60)
         // Create an ad request to load an ad.
         val adParam = AdParam.Builder().build()
-        bannerView!!.loadAd(adParam)
+        binding.hwBannerView.loadAd(adParam)
 
 
-        var bannerView2: BannerView? = findViewById(R.id.hw_banner_view2)
+
         // Set the ad unit ID and ad dimensions. "testw6vs28auh3" is a dedicated test ad unit ID.
-        bannerView2!!.adId = "testw6vs28auh3"
-        bannerView2!!.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
+        binding.hwBannerView2.adId = "testw6vs28auh3"
+        binding.hwBannerView2.bannerAdSize = BannerAdSize.BANNER_SIZE_360_57
         // Set the refresh interval to 60 seconds.
-        bannerView2!!.setBannerRefresh(60)
+        binding.hwBannerView2.setBannerRefresh(60)
         // Create an ad request to load an ad.
         val adParam1 = AdParam.Builder().build()
-        bannerView2!!.loadAd(adParam1)
+        binding.hwBannerView2.loadAd(adParam1)
 
 
         val idToken = intent.getStringExtra("idToken")
@@ -78,5 +76,14 @@ class HomeActivity : AppCompatActivity() {
             // idToken null ise işleme devam edin veya hata işleme yapın
             Toast.makeText(this,"Silent Signin:" + SilentSignin,Toast.LENGTH_SHORT).show()
         }
+
+        binding.btnLocation.setOnClickListener {
+            locationIntent()
+        }
+    }
+
+    fun locationIntent(){
+        val intent = Intent(this, LocationActivity::class.java)
+        startActivity(intent)
     }
 }

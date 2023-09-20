@@ -38,12 +38,27 @@ android {
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
             )
+            packagingOptions{
+                doNotStrip ("*/arm64-v8a/libucs-credential.so")
+                doNotStrip ("*/armeabi-v7a/libucs-credential.so")
+                // If the CPU architecture is x86, add the following configuration:
+                doNotStrip ("*/x86/libucs-credential.so")
+                doNotStrip ("*/x86_64/libucs-credential.so")
+                exclude ("lib/x86/libucs-credential.so")
+                // Exclude the SO file on which the x86_64 platform depends.
+                exclude ("lib/x86_64/libucs-credential.so")
+            }
         }
         debug {
             signingConfig = signingConfigs.getByName("release")
-                    debug {
                         true
-                    }
+                        packagingOptions{
+                            doNotStrip ("*/arm64-v8a/libucs-credential.so")
+                            doNotStrip ("*/armeabi-v7a/libucs-credential.so")
+                            // If the CPU architecture is x86, add the following configuration:
+                            doNotStrip ("*/x86/libucs-credential.so")
+                            doNotStrip ("*/x86_64/libucs-credential.so")
+                        }
         }
     }
     compileOptions {
@@ -71,4 +86,5 @@ dependencies {
     implementation ("com.huawei.agconnect:agconnect-core:1.9.1.300")
     implementation ("com.huawei.hms:hwid:6.7.0.300")
     implementation ("com.huawei.hms:ads-lite:13.4.66.300")
+    implementation ("com.huawei.hms:location:6.12.0.300")
 }
