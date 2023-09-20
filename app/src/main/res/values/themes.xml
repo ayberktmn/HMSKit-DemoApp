@@ -13,9 +13,10 @@
     <style name="ButtonStyle" parent="@android:style/Widget.Button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@drawable/hwid_auth_button_round_black</item>
+        <item name="android:background">@color/hwid_auth_button_color_red</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:padding">5dp</item>
+        <item name="android:backgroundTint">@color/hwid_auth_button_color_red</item>
         <item name="android:layout_margin">5dp</item>
         <item name="android:textSize">14sp</item>
     </style>
