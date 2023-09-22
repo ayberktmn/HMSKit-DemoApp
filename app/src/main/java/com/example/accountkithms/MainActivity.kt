@@ -15,6 +15,7 @@ import androidx.appcompat.app.AlertDialog
 import com.example.accountkithms.databinding.ActivityMainBinding
 import com.huawei.hmf.tasks.Task
 import com.huawei.hms.common.ApiException
+import com.huawei.hms.push.HmsMessageService
 import com.huawei.hms.support.account.AccountAuthManager
 import com.huawei.hms.support.account.request.AccountAuthParams
 import com.huawei.hms.support.account.request.AccountAuthParamsHelper
@@ -28,6 +29,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        MyPushService()
 
         val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setIdToken().createParams()
         val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
@@ -55,6 +57,9 @@ class MainActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         // Process the authorization result and obtain an ID to**AuthAccount**thAccount.
         super.onActivityResult(requestCode, resultCode, data)
+
+
+
         if (requestCode == 8888) {
             val authAccountTask = AccountAuthManager.parseAuthResultFromIntent(data)
             if (authAccountTask.isSuccessful) {

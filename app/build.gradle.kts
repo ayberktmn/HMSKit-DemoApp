@@ -87,4 +87,6 @@ dependencies {
     implementation ("com.huawei.hms:hwid:6.7.0.300")
     implementation ("com.huawei.hms:ads-lite:13.4.66.300")
     implementation ("com.huawei.hms:location:6.12.0.300")
+    implementation ("com.huawei.hms:push:6.11.0.300")
+    implementation ("com.huawei.hms:maps:6.11.0.304")
 }

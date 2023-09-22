@@ -31,4 +31,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btnlocationupdate" />
 
+    <com.huawei.hms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="342dp"
+        android:layout_height="425dp"
+        android:layout_marginBottom="6dp"
+        app:cameraTargetLat="51"
+        app:cameraTargetLng="10"
+        app:cameraZoom="8.5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView6"
+        app:mapType="normal"
+        app:uiCompass="true"
+        app:uiZoomControls="true" />
 </androidx.constraintlayout.widget.ConstraintLayout>
