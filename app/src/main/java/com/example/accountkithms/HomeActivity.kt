@@ -9,7 +9,6 @@ import com.example.accountkithms.databinding.ActivityHomeBinding
 import com.huawei.hms.ads.AdParam
 import com.huawei.hms.ads.BannerAdSize
 import com.huawei.hms.ads.HwAds
-import com.huawei.hms.push.HmsMessageService
 
 
 class HomeActivity : AppCompatActivity() {
