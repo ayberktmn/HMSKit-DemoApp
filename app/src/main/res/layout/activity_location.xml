@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LocationActivity">
+
+    <Button
+        android:id="@+id/btnMap"
+        android:layout_width="274dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="276dp"
+        android:layout_marginEnd="43dp"
+        android:backgroundTint="#D64747"
+        android:text="Haritayi Ac"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtloc3"
+        android:layout_width="85dp"
+        android:layout_height="23dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:text="Location Y:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtloc2" />
+
+    <TextView
+        android:id="@+id/txtloc2"
+        android:layout_width="87dp"
+        android:layout_height="22dp"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="24dp"
+        android:text="Location X:"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnlocationstop2" />
+
+    <TextView
+        android:id="@+id/txtLocY2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="28dp"
+        android:gravity="center"
+        android:text="00000"
+        app:layout_constraintStart_toEndOf="@+id/txtloc3"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocX2" />
+
+    <TextView
+        android:id="@+id/txtLocX2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="24dp"
+        android:gravity="center"
+        android:text="00000"
+        app:layout_constraintStart_toEndOf="@+id/txtloc2"
+        app:layout_constraintTop_toBottomOf="@+id/btnlocationstop2" />
+
+    <Button
+        android:id="@+id/btnlocationstop2"
+        android:layout_width="279dp"
+        android:layout_height="54dp"
+        android:layout_marginStart="41dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="40dp"
+        android:text="Location Stopped"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnlocationupdate2" />
+
+    <Button
+        android:id="@+id/btnlocationupdate2"
+        android:layout_width="274dp"
+        android:layout_height="49dp"
+        android:layout_marginStart="43dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="43dp"
+        android:text="@string/Location"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtBack"
+        android:layout_width="23dp"
+        android:layout_height="29dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:drawableLeft="@drawable/back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="345dp"
+        android:layout_height="223dp"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnMap">
+
+        <com.huawei.hms.maps.MapView
+            android:id="@+id/mapView"
+            android:layout_width="match_parent"
+            android:layout_height="224dp"
+            app:cameraTargetLat="51"
+            app:cameraTargetLng="10"
+            app:cameraZoom="8.5"
+            app:mapType="normal"
+            app:uiCompass="true"
+            app:uiZoomControls="true">
+
+        </com.huawei.hms.maps.MapView>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>
