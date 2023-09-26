@@ -127,25 +127,25 @@ class ScanActivity : AppCompatActivity() {
                         .show()
                     Toast.makeText(this, obj.originalValue, Toast.LENGTH_SHORT).show()
                 }
-                    else if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_PHOTO && data != null) {
+                }
+            if (resultCode == RESULT_OK && requestCode == REQUEST_CODE_PHOTO && data != null) {
                 Toast.makeText(this, "Resim Secildi", Toast.LENGTH_SHORT).show()
-                        val path = getImagePath(this@ScanActivity, data)
-                        if (TextUtils.isEmpty(path)) {
-                            return
-                        }
-                        // Obtain the bitmap image from the image path.
-                        val bitmap = ScanUtil.compressBitmap(this@ScanActivity, path)
-                        // Call the decodeWithBitmap method to pass the bitmap image.
-                        val result1 = ScanUtil.decodeWithBitmap(this@ScanActivity, bitmap, HmsScanAnalyzerOptions.Creator().setHmsScanTypes(0).setPhotoMode(false).create())
-                        // Obtain the scanning result.
-                        if (result1 != null && result1.size > 0) {
-                            Toast.makeText(this, "QR Kod Bulundu: $result1", Toast.LENGTH_SHORT).show()
-                            if (!TextUtils.isEmpty(result1[0].getOriginalValue())) {
-                                Toast.makeText(this, result1[0].getOriginalValue(), Toast.LENGTH_SHORT).show()
-                            }
-                        }
+                val path = getImagePath(this@ScanActivity, data)
+                if (TextUtils.isEmpty(path)) {
+                    return
+                }
+                // Obtain the bitmap image from the image path.
+                val bitmap = ScanUtil.compressBitmap(this@ScanActivity, path)
+                // Call the decodeWithBitmap method to pass the bitmap image.
+                val result1 = ScanUtil.decodeWithBitmap(this@ScanActivity, bitmap, HmsScanAnalyzerOptions.Creator().setHmsScanTypes(0).setPhotoMode(false).create())
+                // Obtain the scanning result.
+                if (result1 != null && result1.size > 0) {
+                    Toast.makeText(this, "QR Kod Bulundu: $result1", Toast.LENGTH_SHORT).show()
+                    if (!TextUtils.isEmpty(result1[0].getOriginalValue())) {
+                        Toast.makeText(this, result1[0].getOriginalValue(), Toast.LENGTH_SHORT).show()
                     }
                 }
+            }
             }
         }
 
