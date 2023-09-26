@@ -1,8 +1,6 @@
 package com.example.accountkithms
 
 
-import MyPushService
-import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
 import android.graphics.Color
@@ -12,15 +10,12 @@ import android.text.SpannableString
 import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.accountkithms.databinding.ActivityMainBinding
 import com.huawei.hmf.tasks.Task
 import com.huawei.hms.aaid.HmsInstanceId
 import com.huawei.hms.common.ApiException
-import com.huawei.hms.push.HmsMessageService
-import com.huawei.hms.push.HmsMessaging
 import com.huawei.hms.support.account.AccountAuthManager
 import com.huawei.hms.support.account.request.AccountAuthParams
 import com.huawei.hms.support.account.request.AccountAuthParamsHelper
@@ -36,8 +31,6 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         getToken()
-       // MyPushService()
-
 
         val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setIdToken().createParams()
         val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
