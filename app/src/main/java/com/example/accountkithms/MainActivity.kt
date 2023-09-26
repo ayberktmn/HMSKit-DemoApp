@@ -1,5 +1,7 @@
 package com.example.accountkithms
 
+
+import MyPushService
 import android.content.ContentValues
 import android.content.ContentValues.TAG
 import android.content.Intent
@@ -7,6 +9,7 @@ import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.SpannableString
+import android.text.TextUtils
 import android.text.style.ForegroundColorSpan
 import android.util.Log
 import android.view.View
@@ -14,8 +17,10 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.example.accountkithms.databinding.ActivityMainBinding
 import com.huawei.hmf.tasks.Task
+import com.huawei.hms.aaid.HmsInstanceId
 import com.huawei.hms.common.ApiException
 import com.huawei.hms.push.HmsMessageService
+import com.huawei.hms.push.HmsMessaging
 import com.huawei.hms.support.account.AccountAuthManager
 import com.huawei.hms.support.account.request.AccountAuthParams
 import com.huawei.hms.support.account.request.AccountAuthParamsHelper
@@ -29,7 +34,10 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        MyPushService()
+
+        getToken()
+       // MyPushService()
+
 
         val authParams : AccountAuthParams = AccountAuthParamsHelper(AccountAuthParams.DEFAULT_AUTH_REQUEST_PARAM).setIdToken().createParams()
         val service : AccountAuthService = AccountAuthManager.getService(this@MainActivity, authParams)
@@ -52,6 +60,34 @@ class MainActivity : AppCompatActivity() {
         binding.cancelAuthorization.setOnClickListener {
             showCancelAuthorizationConfirmationDialog()
         }
+    }
+
+    private fun getToken() {
+        // Create a thread.
+        object : Thread() {
+            override fun run() {
+                try {
+                    // Obtain the app ID from the agconnect-services.json file.
+                    val appId = "109193679"
+
+                    // Set tokenScope to HCM.
+                    val tokenScope = "HCM"
+                    val token = HmsInstanceId.getInstance(this@MainActivity).getToken(appId, tokenScope)
+                    Log.i(TAG, "get token:$token")
+//                    Toast.makeText(this@MainActivity,"Token:",Toast.LENGTH_SHORT).show()
+
+                    // Check whether the token is null.
+                    if (!TextUtils.isEmpty(token)) {
+                        sendRegTokenToServer(token)
+                    }
+                } catch (e: ApiException) {
+                    Log.e(TAG, "get token failed, $e")
+                }
+            }
+        }.start()
+    }
+    private fun sendRegTokenToServer(token: String) {
+        Log.i(TAG, "sending token to server. token:$token")
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
