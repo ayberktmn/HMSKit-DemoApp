@@ -59,7 +59,6 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
 
-
         if (requestCode == 8888) {
             val authAccountTask = AccountAuthManager.parseAuthResultFromIntent(data)
             if (authAccountTask.isSuccessful) {

@@ -80,10 +80,18 @@ class HomeActivity : AppCompatActivity() {
         binding.btnLocation.setOnClickListener {
             locationIntent()
         }
+        binding.btnScan.setOnClickListener {
+            scanIntent()
+        }
     }
 
     fun locationIntent(){
         val intent = Intent(this, LocationActivity::class.java)
+        startActivity(intent)
+    }
+
+    fun scanIntent(){
+        val intent = Intent(this@HomeActivity,ScanActivity::class.java)
         startActivity(intent)
     }
 }

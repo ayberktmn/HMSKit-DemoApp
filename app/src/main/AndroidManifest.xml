@@ -8,6 +8,12 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
+    <!--Camera permission-->
+    <uses-permission android:name="android.permission.CAMERA" />
+    <!--File reading permission-->
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-feature android:name="android.hardware.camera" />
+    <uses-feature android:name="android.hardware.camera.autofocus" />
 
     <application
         android:allowBackup="true"
@@ -21,10 +27,10 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".LocationActivity"
+            android:name=".ScanActivity"
             android:exported="false" />
         <activity
-            android:name=".MapActivity"
+            android:name=".LocationActivity"
             android:exported="false" />
 
         <service
@@ -35,9 +41,6 @@
             </intent-filter>
         </service>
 
-        <activity
-            android:name=".LocationActivity"
-            android:exported="false" />
         <activity
             android:name=".HomeActivity"
             android:exported="false" />
