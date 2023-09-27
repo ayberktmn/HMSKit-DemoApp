@@ -7,18 +7,14 @@
     tools:context=".LocationActivity">
 
     <Button
-        android:id="@+id/btnMap"
-        android:layout_width="274dp"
-        android:layout_height="49dp"
-        android:layout_marginStart="43dp"
-        android:layout_marginTop="276dp"
-        android:layout_marginEnd="43dp"
-        android:backgroundTint="#D64747"
-        android:text="Haritayi Ac"
+        android:id="@+id/btnSearch"
+        android:layout_width="99dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="244dp"
+        android:text="Search"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/txtLocY2" />
 
     <TextView
         android:id="@+id/txtloc3"
@@ -104,7 +100,7 @@
         app:cardCornerRadius="15dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnMap">
+        app:layout_constraintTop_toBottomOf="@+id/btnSearch">
 
         <com.huawei.hms.maps.MapView
             android:id="@+id/mapView"
@@ -119,4 +115,43 @@
 
         </com.huawei.hms.maps.MapView>
     </androidx.cardview.widget.CardView>
+
+    <TextView
+        android:id="@+id/textView8"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="39dp"
+        android:text="Query: "
+        app:layout_constraintStart_toEndOf="@+id/btnSearch"
+        app:layout_constraintTop_toBottomOf="@+id/txtloc3" />
+
+    <EditText
+        android:id="@+id/edit_text_text_search_query"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="29dp"
+        android:layout_marginEnd="66dp"
+        android:layout_weight="1"
+        android:autofillHints=""
+        android:hint=""
+        android:imeOptions="actionGo"
+        android:inputType="text"
+        android:text="Eiffel Tower"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/textView8"
+        app:layout_constraintTop_toBottomOf="@+id/txtLocY2" />
+
+
+    <TextView
+        android:id="@+id/response_text_search"
+        android:layout_width="111dp"
+        android:layout_height="99dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:textIsSelectable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btnlocationstop2" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,6 +15,15 @@ import com.example.accountkithms.databinding.ActivityScanBinding
 import com.huawei.hms.hmsscankit.ScanUtil
 import com.huawei.hms.ml.scan.HmsScan
 import com.huawei.hms.ml.scan.HmsScanAnalyzerOptions
+import com.huawei.hms.site.api.SearchResultListener
+import com.huawei.hms.site.api.SearchService
+import com.huawei.hms.site.api.SearchServiceFactory
+import com.huawei.hms.site.api.model.Coordinate
+import com.huawei.hms.site.api.model.HwLocationType
+import com.huawei.hms.site.api.model.SearchStatus
+import com.huawei.hms.site.api.model.Site
+import com.huawei.hms.site.api.model.TextSearchRequest
+import com.huawei.hms.site.api.model.TextSearchResponse
 
 
 class ScanActivity : AppCompatActivity() {
@@ -23,7 +32,7 @@ class ScanActivity : AppCompatActivity() {
 
         companion object {
             const val REQUEST_CODE_SCAN = 123
-            const val CAMERA_PERMISSION_REQUEST = 124
+            const val CAMERA_PERMISSION_REQUEST = 124          //bu sabit sayilar sayesinde kodun daha rahat yonetilmesi saglaniyor
             const val REQUEST_CODE_PHOTO = 125
             const val STORAGE_PERMISSION_REQUEST= 126
         }
@@ -163,3 +172,5 @@ class ScanActivity : AppCompatActivity() {
         }
         return imagePath
     }
+
+
