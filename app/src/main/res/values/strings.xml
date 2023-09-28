@@ -12,4 +12,5 @@
     <string name="AuthorizationCode">Authorization Code:</string>
     <string name="Silentsignin">Silent Signin:</string>
     <string name="Location">Location Updates:</string>
+    <string name="pharmacy">Pharmacy</string>
 </resources>
