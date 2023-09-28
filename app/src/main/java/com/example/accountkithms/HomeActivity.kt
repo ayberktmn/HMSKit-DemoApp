@@ -86,7 +86,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     fun locationIntent(){
-        val intent = Intent(this, LocationActivity::class.java)
+        val intent = Intent(this@HomeActivity, LocationActivity::class.java)
         startActivity(intent)
     }
 

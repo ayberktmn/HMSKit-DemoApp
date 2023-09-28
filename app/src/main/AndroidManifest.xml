@@ -8,14 +8,15 @@
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
-    <!--Camera permission-->
-    <uses-permission android:name="android.permission.CAMERA" />
-    <!--File reading permission-->
+    <uses-permission android:name="com.huawei.appmarket.service.commondata.permission.GET_COMMON_DATA" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" /> <!-- Camera permission -->
+    <uses-permission android:name="android.permission.CAMERA" /> <!-- File reading permission -->
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-    <uses-permission android:name="com.huawei.push.permission.PUSH_TOKEN" />
 
+    <uses-permission android:name="com.huawei.push.permission.PUSH_TOKEN" />
 
     <application
         android:allowBackup="true"
@@ -29,20 +30,14 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".NearbySiteActivity"
+            android:exported="false" />
+        <activity
             android:name=".ScanActivity"
             android:exported="false" />
         <activity
             android:name=".LocationActivity"
             android:exported="false" />
-
-        <service
-            android:name="MyPushService"
-            android:exported="false">
-            <intent-filter>
-                <action android:name="com.huawei.push.action.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
-
         <activity
             android:name=".HomeActivity"
             android:exported="false" />

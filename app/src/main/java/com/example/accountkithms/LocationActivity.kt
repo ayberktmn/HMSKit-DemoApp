@@ -3,7 +3,10 @@ package com.example.accountkithms
 import android.Manifest.permission.ACCESS_FINE_LOCATION
 import android.Manifest.permission.ACCESS_WIFI_STATE
 import android.content.ContentValues.TAG
+import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
@@ -13,6 +16,7 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.annotation.RequiresPermission
+import androidx.core.app.ActivityCompat
 import com.example.accountkithms.databinding.ActivityLocationBinding
 import com.huawei.hms.location.FusedLocationProviderClient
 import com.huawei.hms.location.LocationCallback
@@ -38,7 +42,7 @@ import com.huawei.hms.site.api.model.TextSearchResponse
 import java.io.UnsupportedEncodingException
 import java.net.URLEncoder
 
-class LocationActivity : AppCompatActivity() , OnMapReadyCallback {
+class LocationActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityLocationBinding
     private lateinit var fusedLocationProviderClient: FusedLocationProviderClient
@@ -47,10 +51,7 @@ class LocationActivity : AppCompatActivity() , OnMapReadyCallback {
     private lateinit var searchService: SearchService
     private lateinit var resultTextView: TextView
     private lateinit var queryInput: EditText
-    // HUAWEI map
-    private var hMap: HuaweiMap? = null
 
-    private var mMapView: MapView? = null
 
     companion object {
 
@@ -60,22 +61,13 @@ class LocationActivity : AppCompatActivity() , OnMapReadyCallback {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityLocationBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
         MapsInitializer.initialize(this@LocationActivity)
-        var mSupportMapFragment: SupportMapFragment? = null
-        mSupportMapFragment = supportFragmentManager.findFragmentById(R.id.mapView) as SupportMapFragment?
-        mSupportMapFragment?.getMapAsync(this@LocationActivity)
-        mMapView = findViewById(R.id.mapView)
+        setContentView(binding.root)
 
         var mapViewBundle: Bundle? = null
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
 
-        }
-        mMapView?.apply {
-            onCreate(mapViewBundle)
-            getMapAsync(this@LocationActivity)
         }
 
 
@@ -90,6 +82,12 @@ class LocationActivity : AppCompatActivity() , OnMapReadyCallback {
 
         queryInput = findViewById(R.id.edit_text_text_search_query)
         resultTextView = findViewById(R.id.response_text_search)
+
+        binding.btnNearby.setOnClickListener {
+            val intent = Intent(this@LocationActivity,NearbySiteActivity::class.java)
+            startActivity(intent)
+        }
+
 
         binding.btnSearch.setOnClickListener {
            search()
@@ -199,16 +197,5 @@ class LocationActivity : AppCompatActivity() , OnMapReadyCallback {
         } catch (e: Exception) {
             // Hata işleme...
         }
-    }
-
-    @RequiresPermission(allOf = [ACCESS_FINE_LOCATION, ACCESS_WIFI_STATE])
-    override fun onMapReady(map: HuaweiMap) {
-        hMap = map
-        // Enable the my-location layer.
-        hMap!!.isMyLocationEnabled = true
-        // Enable the my-location icon.
-        hMap!!.uiSettings.isMyLocationButtonEnabled = true
-
-
     }
 }
