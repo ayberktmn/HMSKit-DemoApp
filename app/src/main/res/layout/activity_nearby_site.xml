@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".NearbySiteActivity">
+
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="67dp"
+        android:layout_margin="5dp"
+        android:layout_marginTop="50dp"
+        card_view:cardBackgroundColor="@color/cardview_shadow_start_color"
+        card_view:cardCornerRadius="12dp"
+        card_view:cardElevation="3dp"
+        card_view:contentPadding="4dp">
+
+        <Switch
+            android:id="@+id/swith_hosp_pharmcy"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="8dp"
+            android:paddingStart="10dp"
+            android:text="@string/pharmacy"
+            android:textColor="@color/design_default_color_primary_dark"
+            android:textStyle="bold"
+            tools:ignore="RtlSymmetry,UseSwitchCompatOrMaterialXml" />
+
+        <TextView
+            android:id="@+id/textphrhos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:paddingLeft="12dp"
+            android:text="Switch For Hospitals"
+            android:textStyle="bold" />
+
+    </androidx.cardview.widget.CardView>
+
+    <com.huawei.hms.maps.MapView
+        android:id="@+id/mapView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    </com.huawei.hms.maps.MapView>
+
+
+</RelativeLayout>
