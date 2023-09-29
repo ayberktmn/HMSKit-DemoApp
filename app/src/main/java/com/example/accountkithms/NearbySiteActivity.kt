@@ -53,6 +53,7 @@ class NearbySiteActivity : AppCompatActivity(),OnMapReadyCallback {
         setContentView(binding.root)
 
         binding.swithHospPharmcy.setOnCheckedChangeListener{ _, isChecked ->
+            Toast.makeText(this@NearbySiteActivity,"Lutfen Bekleyiniz...",Toast.LENGTH_SHORT).show()
             getLocation()
         }
 
@@ -175,6 +176,7 @@ class NearbySiteActivity : AppCompatActivity(),OnMapReadyCallback {
         // Enable the my-location layer.
         hMap!!.isMyLocationEnabled = true
         // Enable the my-location icon.
+        getLocation()
         hMap!!.uiSettings.isMyLocationButtonEnabled = true
 
     }
