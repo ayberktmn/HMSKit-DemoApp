@@ -1,22 +1,18 @@
 package com.example.accountkithms
 
-import android.Manifest.permission.ACCESS_FINE_LOCATION
-import android.Manifest.permission.ACCESS_WIFI_STATE
+
 import android.content.ContentValues.TAG
-import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Looper
 import android.util.Log
-import android.view.View
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.annotation.RequiresPermission
-import androidx.core.app.ActivityCompat
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
 import com.example.accountkithms.databinding.ActivityLocationBinding
 import com.huawei.hms.location.FusedLocationProviderClient
 import com.huawei.hms.location.LocationCallback
@@ -24,19 +20,13 @@ import com.huawei.hms.location.LocationRequest
 import com.huawei.hms.location.LocationResult
 import com.huawei.hms.location.LocationServices
 import com.huawei.hms.location.SettingsClient
-import com.huawei.hms.maps.HuaweiMap
-import com.huawei.hms.maps.MapView
 import com.huawei.hms.maps.MapsInitializer
-import com.huawei.hms.maps.OnMapReadyCallback
-import com.huawei.hms.maps.SupportMapFragment
 import com.huawei.hms.site.api.SearchResultListener
 import com.huawei.hms.site.api.SearchService
 import com.huawei.hms.site.api.SearchServiceFactory
 import com.huawei.hms.site.api.model.AddressDetail
-import com.huawei.hms.site.api.model.Coordinate
 import com.huawei.hms.site.api.model.HwLocationType
 import com.huawei.hms.site.api.model.SearchStatus
-import com.huawei.hms.site.api.model.Site
 import com.huawei.hms.site.api.model.TextSearchRequest
 import com.huawei.hms.site.api.model.TextSearchResponse
 import java.io.UnsupportedEncodingException
@@ -52,7 +42,6 @@ class LocationActivity : AppCompatActivity() {
     private lateinit var resultTextView: TextView
     private lateinit var queryInput: EditText
 
-
     companion object {
 
         private const val MAPVIEW_BUNDLE_KEY = "MapViewBundleKey"
@@ -67,9 +56,7 @@ class LocationActivity : AppCompatActivity() {
         var mapViewBundle: Bundle? = null
         if (savedInstanceState != null) {
             mapViewBundle = savedInstanceState.getBundle(MAPVIEW_BUNDLE_KEY)
-
         }
-
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this)  //fusedlocation istemcisini baslatir
         settingsClient = LocationServices.getSettingsClient(this)
@@ -88,23 +75,19 @@ class LocationActivity : AppCompatActivity() {
             startActivity(intent)
         }
 
-
         binding.btnSearch.setOnClickListener {
            search()
         }
 
         binding.btnlocationupdate2.setOnClickListener {
-            requestLocationUpdates()
+            requestLocationPermission()
         }
         binding.btnlocationstop2.setOnClickListener {
             removeLocationUpdatesWithCallback()
         }
-
-
         binding.txtBack.setOnClickListener {
             val intent = Intent(this@LocationActivity,HomeActivity::class.java)
             startActivity(intent)
-
         }
     }
 
@@ -173,7 +156,6 @@ class LocationActivity : AppCompatActivity() {
                 }
             }
         }
-
         fusedLocationProviderClient.requestLocationUpdates(mLocationRequest, mLocationCallback, Looper.getMainLooper())
             .addOnSuccessListener {
                 // TODO: Define callback for API call success.
@@ -182,8 +164,48 @@ class LocationActivity : AppCompatActivity() {
                 Toast.makeText(this@LocationActivity, "Fail", Toast.LENGTH_SHORT).show()
             }
     }
+    private fun requestLocationPermission() {
+        val permissions = arrayOf(
+            android.Manifest.permission.ACCESS_FINE_LOCATION,
+            android.Manifest.permission.ACCESS_COARSE_LOCATION
+        )
+
+        if (arePermissionsGranted(permissions)) {
+            // İzinler zaten verildi
+            requestLocationUpdates()
+        } else {
+            // İzinleri kullanıcıdan iste
+            requestPermissions(permissions, PackageManager.PERMISSION_GRANTED)
+        }
+    }
+
+    private fun arePermissionsGranted(permissions: Array<String>): Boolean {
+        return permissions.all {
+            ContextCompat.checkSelfPermission(this, it) == PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int, permissions: Array<String>, grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+        if (requestCode == PackageManager.PERMISSION_GRANTED) {
+            if (arePermissionsGranted(permissions)) {
+                // İzinler verildi
+                requestLocationUpdates()
+            } else {
+                // İzinler reddedildi, kullanıcıyı bilgilendirin
+                Toast.makeText(
+                    this,
+                    "Konum izni reddedildi.",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+    }
 
     private fun removeLocationUpdatesWithCallback() {
+
         try {
             fusedLocationProviderClient.removeLocationUpdates(mLocationCallback)
                 .addOnSuccessListener {
