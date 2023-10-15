@@ -72,7 +72,7 @@ class NearbySiteActivity : AppCompatActivity(),OnMapReadyCallback {
     private fun getLocation() {
 
         val mLocationRequest = LocationRequest()
-        mLocationRequest.interval = 1800000      //sureye dayali buluyor yakindaki seyleri
+        mLocationRequest.interval = 1800000      //sureye dayali buluyor yakindaki yerleri
         mMarker?.remove()
         mLocationRequest.priority = LocationRequest.PRIORITY_HIGH_ACCURACY
 
